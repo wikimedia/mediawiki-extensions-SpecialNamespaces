@@ -253,7 +253,7 @@ class SpecialNamespaces extends SpecialPage {
 		$selfTitle = $this->getTitle();
 
 		if ( $admin ) {
-			$skin = $this->getUser()->getSkin();
+			$skin = $this->getSkin();
 			$addtext = wfMessage( 'namespaces_addtext' )->parse();
 			$addlink = Linker::link( $selfTitle, $addtext, array(), array( 'action' => 'add' ) );
 			$this->getOutput()->addHTML( '<p>' . $addlink . '</p>' );

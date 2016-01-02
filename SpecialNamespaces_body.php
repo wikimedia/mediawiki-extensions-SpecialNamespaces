@@ -31,15 +31,13 @@ class SpecialNamespaces extends SpecialPage {
 		case "edit" :
 		case "add" :
 			if ( !$admin ) {
-				$this->getOutput()->permissionRequired( 'namespaces' );
-				return;
+				throw new PermissionsError( 'namespaces' );
 			}
 			$this->showForm( $action );
 			break;
 		case "submit":
 			if ( !$admin ) {
-				$this->getOutput()->permissionRequired( 'namespaces' );
-				return;
+				throw new PermissionsError( 'namespaces' );
 			}
 			if ( !$req->wasPosted() || !$this->getUser()->matchEditToken( $req->getVal( 'wpEditToken' ) ) ) {
 				$this->getOutput()->addWikiMsg( 'sessionfailure' );

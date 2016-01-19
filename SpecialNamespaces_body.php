@@ -8,6 +8,10 @@ class SpecialNamespaces extends SpecialPage {
 		parent::__construct( 'Namespaces' );
 	}
 
+	public function doesWrites() {
+		return true;
+	}
+
 	function discard() {
 		global $wgMemc;
 		$wgMemc->delete( wfMemcKey( 'SpecialNamespaces', 'names' ) );

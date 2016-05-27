@@ -291,10 +291,10 @@ class SpecialNamespaces extends SpecialPage {
 				<td class='mw-namespacestable-nscanonical'>$nscanonical</td>";
 			if ( $admin ) {
 				$out .= '<td class="mw-namespacestable-modify">';
-				$out .= $skin->link( $selfTitle, $editmessage, array(),
+				$out .= Linker::link( $selfTitle, $editmessage, array(),
 					array( 'action' => 'edit', 'prefix' => $nsid, 'name' => $nsname ) );
 				$out .= ', ';
-				$out .= $skin->link( $selfTitle, $deletemessage, array(),
+				$out .= Linker::link( $selfTitle, $deletemessage, array(),
 					array( 'action' => 'delete', 'prefix' => $nsid, 'name' => $nsname ) );
 				$out .= '</td>';
 			}

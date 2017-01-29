@@ -27,7 +27,6 @@ $wgExtensionCredits['specialpage'][] = array(
 	'path'           => __FILE__,
 	'name'           => 'SpecialNamespaces',
 	'url'            => 'https://mediawiki.org/wiki/Extension:SpecialNamespaces',
-	'description'    => 'Adds a [[Special:Namespaces|special page]] to view and edit the namespaces table',
 	'author'         => array( 'Stephanie Amanda Stevens', 'SPQRobin', 'others' ),
 	'descriptionmsg' => 'namespaces-desc',
 );

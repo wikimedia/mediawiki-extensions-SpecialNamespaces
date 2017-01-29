@@ -79,7 +79,7 @@ Possibly it does not exist.',
 $messages['qqq'] = array(
 	'namespaces' => 'This message is the title of the special page [[Special:Namespaces]].',
 	'namespaces-title-norights' => 'Part of the namespaces extension. This message is the title of the special page [[Special:Namespaces]] when the user has no right to edit the namespaces data, so can only view them.',
-	'namespaces-desc' => '-',
+	'namespaces-desc' => '{{desc|name=SpecialNamespaces|url=https://www.mediawiki.org/wiki/Extension:SpecialNamespaces}}',
 	'namespaces_intro' => 'Part of the namespaces extension. Shown as introductory text on [[Special:Namespaces]].',
 	'namespaces_nsid' => 'Used on [[Special:Namespaces]] as a column header of the table.',
 	'namespaces_nsid_intro' => 'Used on [[Special:Namespaces]] so as to explain the data in the {{msg-mw|namespaces_nsid}} column of the table. ',

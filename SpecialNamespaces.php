@@ -36,7 +36,6 @@ $wgExtensionMessagesFiles['Namespaces'] = $dir . 'SpecialNamespaces.i18n.php';
 $wgExtensionMessagesFiles['NamespacesAlias'] = $dir . 'SpecialNamespaces.alias.php';
 
 $wgSpecialPages['Namespaces'] = 'SpecialNamespaces';
-$wgSpecialPageGroups['Namespaces'] = 'wiki';
 $wgAutoloadClasses['SpecialNamespaces'] = $dir . 'SpecialNamespaces_body.php';
 
 $wgAvailableRights[] = 'namespaces';

@@ -310,4 +310,8 @@ class SpecialNamespaces extends SpecialPage {
 		$args = func_get_args();
 		$this->getOutput()->wrapWikiMsg( "<p class='error'>$1</p>", $args );
 	}
+
+	protected function getGroupName() {
+		return 'wiki';
+	}
 }

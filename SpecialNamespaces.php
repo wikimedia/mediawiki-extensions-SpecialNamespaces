@@ -32,7 +32,7 @@ $wgExtensionCredits['specialpage'][] = array(
 );
 
 $dir = dirname( __FILE__ ) . '/';
-$wgExtensionMessagesFiles['Namespaces'] = $dir . 'SpecialNamespaces.i18n.php';
+$wgMessagesDirs['Namespaces'] = $dir . 'i18n';
 $wgExtensionMessagesFiles['NamespacesAlias'] = $dir . 'SpecialNamespaces.alias.php';
 
 $wgSpecialPages['Namespaces'] = 'SpecialNamespaces';

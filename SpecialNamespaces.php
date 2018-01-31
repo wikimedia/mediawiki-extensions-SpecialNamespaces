@@ -55,6 +55,14 @@ $wgHooks['CanonicalNamespaces'][] = 'fnNamespaceHook';
 # hook for initial database table creation on MW 1.18+
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'fnNamespaceSchemaUpdates';
 
+
+$wgResourceModules += array(
+	'ext.specialnamespaces' => [
+		'styles' => 'SpecialNamespaces.css',
+		'localBasePath' => __DIR__ . '/modules',
+		'remoteExtPath' => 'SpecialNamespaces/modules',
+] );
+
 /**
  * Database table creation (invoked in maintenance/update.php script)
  *

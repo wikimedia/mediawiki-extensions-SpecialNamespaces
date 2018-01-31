@@ -226,7 +226,7 @@ class SpecialNamespaces extends SpecialPage {
 	function showList( $admin ) {
 		global $wgScriptPath;
 
-		$this->getOutput()->addExtensionStyle( "{$wgScriptPath}/extensions/Namespaces/SpecialNamespaces.css" );
+		$this->getOutput()->addModuleStyles( "ext.specialnamespaces" );
 
 		$nsidmessage = wfMessage( 'namespaces_nsid' )->parse();
 		$nsnamemessage = wfMessage( 'namespaces_nsname' )->parse();

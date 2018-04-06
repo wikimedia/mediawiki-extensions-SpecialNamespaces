@@ -6,7 +6,7 @@
  * (at your option) any later version.
  *
  * This extension requires memcached and uses [[mw:Manual:Hooks/CanonicalNamespaces]]
- * see http://www.mediawiki.org/wiki/Extension:SpecialNamespaces
+ * see https://www.mediawiki.org/wiki/Extension:SpecialNamespaces
  *
  * SpecialNamespaces is an unsupported derivative work based on Special:Interwiki
  *

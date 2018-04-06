@@ -6,7 +6,7 @@
 	"namespaces-title-norights": "Ver dados namespaces",
 	"namespaces-desc": "Adiciona uma [[Special:Namespaces|página especial]] para visualizar e editar namespaces",
 	"namespaces_intro": "Isto é um resumo da tabela de namespaces. Significado dos dados nas colunas:",
-	"namespaces_intro_footer": "Veja [http://www.mediawiki.org/wiki/Namespaces MediaWiki.org] para mais informações sobre namespaces.",
+	"namespaces_intro_footer": "Veja [https://www.mediawiki.org/wiki/Namespaces MediaWiki.org] para mais informações sobre namespaces.",
 	"namespaces_1": "sim",
 	"namespaces_0": "não",
 	"namespaces_error": "A tabela de namespaces está vazia.",

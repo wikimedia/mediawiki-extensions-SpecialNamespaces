@@ -18,7 +18,7 @@
 	"namespaces_canonical_intro": "Used on [[Special:Namespaces]] so as to explain the data in the {{msg-mw|namespaces_canonical}} column of the table.",
 	"namespaces_canonical_1_intro": "Used on [[Special:Namespaces]] so as to descripe the meaning of the value 1 in the {{msg-mw|namespaces_canonical}} column of the table.",
 	"namespaces_canonical_0_intro": "Used on [[Special:Namespaces]] so as to describe the meaning of the value 0 in the {{msg-mw|namespaces_canonical}} column of the table.",
-	"namespaces_intro_footer": "Part of the namespaces extension. Shown as last pice of the introductory text on [[Special:Namespaces]].\nParameter $1 contains the following (a link): [http://www.mediawiki.org/wiki/Namespaces MediaWiki.org]",
+	"namespaces_intro_footer": "Part of the namespaces extension. Shown as last pice of the introductory text on [[Special:Namespaces]].\nParameter $1 contains the following (a link): [https://www.mediawiki.org/wiki/Namespaces MediaWiki.org]",
 	"namespaces_1": "''\\Yes'''-value to be inserted into the columns headed by {{msg-mw|namespaces_default}} and {{msg-mw|namespaces_canonical}}.\n\n{{Identical|Yes}}",
 	"namespaces_0": "''\\No'''-value to be inserted into the columns headed by {{msg-mw|namespaces_default}} and {{msg-mw|namespaces_canonical}}.\n\n{{Identical|No}}",
 	"namespaces_error": "This message is shown when the Special:Namespaces page is empty.",

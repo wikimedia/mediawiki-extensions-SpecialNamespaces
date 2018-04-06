@@ -18,7 +18,7 @@
 	"namespaces_canonical_intro": "This is the default name of the namespace before translation.",
 	"namespaces_canonical_1_intro": "Yes. (Note that each numbered namespace has exactly one canonical name.)",
 	"namespaces_canonical_0_intro": "No.",
-	"namespaces_intro_footer": "See [http://www.mediawiki.org/wiki/Namespaces MediaWiki.org] for more information about [[mw:help:namespaces|namespaces]].",
+	"namespaces_intro_footer": "See [https://www.mediawiki.org/wiki/Namespaces MediaWiki.org] for more information about [[mw:help:namespaces|namespaces]].",
 	"namespaces_1": "yes",
 	"namespaces_0": "no",
 	"namespaces_error": "The namespaces table is empty.",

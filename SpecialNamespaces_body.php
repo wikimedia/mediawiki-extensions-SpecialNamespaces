@@ -56,7 +56,7 @@ class SpecialNamespaces extends SpecialPage {
 	}
 
 	function showForm( $action ) {
-		$actionUrl = $this->getTitle()->getLocalURL( 'action=submit' );
+		$actionUrl = $this->getPageTitle()->getLocalURL( 'action=submit' );
 		$req = $this->getRequest();
 		$token = $this->getUser()->getEditToken();
 		$defaultreason = $req->getVal( 'wpNamespacesReason', wfMessage( 'namespaces_defaultreason' )->text() );
@@ -170,7 +170,7 @@ class SpecialNamespaces extends SpecialPage {
 			return;
 		}
 		$reason = $req->getText( 'wpNamespacesReason' );
-		$selfTitle = $this->getTitle();
+		$selfTitle = $this->getPageTitle();
 		$dbw = wfGetDB( DB_MASTER );
 		switch ( $do ) {
 		case "delete":
@@ -252,7 +252,7 @@ class SpecialNamespaces extends SpecialPage {
 		$this->getOutput()->addWikiMsg( 'namespaces_intro' );
 		$this->getOutput()->addHTML( $out );
 		$this->getOutput()->addWikiMsg( 'namespaces_intro_footer' );
-		$selfTitle = $this->getTitle();
+		$selfTitle = $this->getPageTitle();
 
 		if ( $admin ) {
 			$skin = $this->getSkin();

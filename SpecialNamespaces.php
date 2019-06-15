@@ -122,7 +122,7 @@ function fnNamespaceHook ( array &$namespaces ) {
 	if ( ( $cached == NULL ) || ( !is_array( $cached ) ) ) {
 
 		// if namespaces are not in memcache, retrieve them from main database
-		$dbr = wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select( 'namespace_names', '*' );
 		$numrows = $dbr->numRows( $res );
 		if ( $numrows > 0 )

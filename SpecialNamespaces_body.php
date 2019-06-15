@@ -97,7 +97,7 @@ class SpecialNamespaces extends SpecialPage {
 			if ( $action == "edit" ) {
 				$nsid = $req->getVal( 'prefix' );
 				$nsoldname = $req->getVal( 'name' );
-				$dbr = wfGetDB( DB_SLAVE );
+				$dbr = wfGetDB( DB_REPLICA );
 				$row = $dbr->selectRow( 'namespace_names', '*', array( 'ns_name' => $nsoldname, 'ns_id' => $nsid ) );
 				if ( !$row ) {
 					$this->error( 'namespaces_editerror', $nsoldname );
@@ -261,7 +261,7 @@ class SpecialNamespaces extends SpecialPage {
 			$this->getOutput()->addHTML( '<p>' . $addlink . '</p>' );
 		}
 
-		$dbr = wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select( 'namespace_names', '*', 1, __METHOD__, array( 'ORDER BY' => 'ns_id' ) );
 		$numrows = $res->numRows();
 		if ( $numrows == 0 ) {

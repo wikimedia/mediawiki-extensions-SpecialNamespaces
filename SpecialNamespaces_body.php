@@ -180,8 +180,14 @@ class SpecialNamespaces extends SpecialPage {
 				$this->error( 'namespaces_delfailed', $nsoldname );
 				$this->showForm( $do );
 			} else {
-				$this->getOutput()->addWikiText( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
-				$this->getOutput()->returnToMain( false, $selfTitle );
+				$out = $this->getOutput();
+				if ( method_exists( $out, 'addWikiTextAsInterface' ) ) {
+					// MW 1.32+
+					$out->addWikiTextAsInterface( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
+				} else {
+					$out->addWikiText( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
+				}
+				$out->returnToMain( false, $selfTitle );
 				$log = new LogPage( 'namespaces' );
 				$log->addEntry( 'ns_delete', $selfTitle, $reason, array( $nsoldname ) );
 			}

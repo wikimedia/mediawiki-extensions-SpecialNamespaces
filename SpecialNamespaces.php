@@ -19,6 +19,8 @@
  * Formatting improvements Stephen Kennedy, 2006.
  */
 
+use Wikimedia\Rdbms\DBError;
+
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die();
 }
@@ -123,7 +125,15 @@ function fnNamespaceHook ( array &$namespaces ) {
 
 		// if namespaces are not in memcache, retrieve them from main database
 		$dbr = wfGetDB( DB_REPLICA );
-		$res = $dbr->select( 'namespace_names', '*' );
+		try {
+			$res = $dbr->select( 'namespace_names', '*' );
+		} catch ( DBError $e ) {
+			// nasty hack to prevent the updater from breaking when it calls this hook
+			if ( preg_match( "/Table '[^']*\bnamespace_names' doesn't exist/", $e->getMessage() ) ) {
+				return;
+			}
+			throw $e;
+		}
 		$numrows = $dbr->numRows( $res );
 		if ( $numrows > 0 )
 		while ( $s = $dbr->fetchObject( $res ) ) {

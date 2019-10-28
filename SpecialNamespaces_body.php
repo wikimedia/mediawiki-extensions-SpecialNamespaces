@@ -268,7 +268,7 @@ class SpecialNamespaces extends SpecialPage {
 		}
 
 		$dbr = wfGetDB( DB_REPLICA );
-		$res = $dbr->select( 'namespace_names', '*', 1, __METHOD__, array( 'ORDER BY' => 'ns_id' ) );
+		$res = $dbr->select( 'namespace_names', '*', '1', __METHOD__, array( 'ORDER BY' => 'ns_id' ) );
 		$numrows = $res->numRows();
 		if ( $numrows == 0 ) {
 			$this->error( 'namespaces_error' );

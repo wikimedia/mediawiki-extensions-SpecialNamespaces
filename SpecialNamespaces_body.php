@@ -189,7 +189,7 @@ class SpecialNamespaces extends SpecialPage {
 				}
 				$out->returnToMain( false, $selfTitle );
 				$log = new LogPage( 'namespaces' );
-				$log->addEntry( 'ns_delete', $selfTitle, $reason, array( $nsoldname ) );
+				$log->addEntry( 'ns_delete', $selfTitle, $reason, array( $nsoldname ), $this->getUser() );
 			}
 			$this->discard();
 			break;
@@ -214,7 +214,13 @@ class SpecialNamespaces extends SpecialPage {
 				$this->getOutput()->addWikiMsg( "namespaces_{$do}ed", $nsid );
 				$this->getOutput()->returnToMain( false, $selfTitle );
 				$log = new LogPage( 'namespaces' );
-				$log->addEntry( 'ns_' . $do, $selfTitle, $reason, array( $nsid, $newname, $nsdefault, $nscanonical ) );
+				$log->addEntry(
+					'ns_' . $do,
+					$selfTitle,
+					$reason,
+					array( $nsid, $newname, $nsdefault, $nscanonical ),
+					$this->getUser()
+				);
 			}
 			$this->discard();
 			break;

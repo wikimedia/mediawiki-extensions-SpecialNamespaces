@@ -19,6 +19,7 @@
  * Formatting improvements Stephen Kennedy, 2006.
  */
 
+use MediaWiki\MediaWikiServices;
 use Wikimedia\Rdbms\DBError;
 
 if ( !defined( 'MEDIAWIKI' ) ) {
@@ -108,7 +109,7 @@ function fnNamespaceCreateTables( $updater ) {
  */
 function fnNamespaceHook ( array &$namespaces ) {
 	global $wgExtraNamespaces, $wgNamespaceAliases;
-	global $wgDBname, $wgMemc;
+	global $wgDBname;
 	global $wgSitename, $wgMetaNamespace, $wgMetaNamespaceTalk;
 
 	if ( $wgExtraNamespaces == NULL ) {
@@ -118,8 +119,9 @@ function fnNamespaceHook ( array &$namespaces ) {
 	    $wgNamespaceAliases = array();
 	}
 
+	$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
 	$key = wfMemcKey( 'SpecialNamespaces', 'names' );
-	$cached = $wgMemc->get( $key );
+	$cached = $cache->get( $key );
 
 	if ( ( $cached == NULL ) || ( !is_array( $cached ) ) ) {
 
@@ -168,7 +170,7 @@ function fnNamespaceHook ( array &$namespaces ) {
 		$dbr->freeResult( $res );
 
 		// store this info to memcache for re-use on subsequent page loads
-		$wgMemc->set ( $key,  array(
+		$cache->set ( $key,  array(
 			'ns' => $namespaces,
 			'ens' => $wgExtraNamespaces,
 			'aka' => $wgNamespaceAliases,

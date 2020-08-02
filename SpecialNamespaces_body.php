@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * implements Special:Namespaces
  * @ingroup SpecialPage
@@ -13,8 +16,8 @@ class SpecialNamespaces extends SpecialPage {
 	}
 
 	function discard() {
-		global $wgMemc;
-		$wgMemc->delete( wfMemcKey( 'SpecialNamespaces', 'names' ) );
+		MediaWikiServices::getInstance()->getLocalServerObjectCache()
+			->delete( wfMemcKey( 'SpecialNamespaces', 'names' ) );
 	}
 
 	function execute( $par ) {

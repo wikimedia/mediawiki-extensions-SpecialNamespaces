@@ -120,7 +120,7 @@ function fnNamespaceHook ( array &$namespaces ) {
 	}
 
 	$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
-	$key = wfMemcKey( 'SpecialNamespaces', 'names' );
+	$key = $cache->makeKey( 'SpecialNamespaces', 'names' );
 	$cached = $cache->get( $key );
 
 	if ( ( $cached == NULL ) || ( !is_array( $cached ) ) ) {

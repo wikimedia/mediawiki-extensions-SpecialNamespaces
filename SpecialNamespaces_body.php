@@ -16,8 +16,8 @@ class SpecialNamespaces extends SpecialPage {
 	}
 
 	function discard() {
-		MediaWikiServices::getInstance()->getLocalServerObjectCache()
-			->delete( wfMemcKey( 'SpecialNamespaces', 'names' ) );
+		$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
+		$cache->delete( $cache->makeKey( 'SpecialNamespaces', 'names' ) );
 	}
 
 	function execute( $par ) {

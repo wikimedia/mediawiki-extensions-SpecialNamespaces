@@ -80,8 +80,7 @@ function fnNamespaceSchemaUpdates( DatabaseUpdater $updater ) {
 /**
  * Create database table 'namespace_names' if it does not already exist (invoked from update.php)
  *
- * @param DatabaseUpdater $updater - the instance of update.php which initiated this installation process
- * @return (no return value) - output table (if created) is sent to main database with status to console
+ * @param DatabaseUpdater $updater the instance of update.php which initiated this installation process
  */
 function fnNamespaceCreateTables( $updater ) {
 	global $wgDBtype;
@@ -104,7 +103,7 @@ function fnNamespaceCreateTables( $updater ) {
  * This is a MediaWiki hook function, which uses the 'CanonicalNamespaces' hook in MW 1.17+
  * Use of memcached (where available) is necessary to avoid severe performance penalty for multiple db accesses
  *
- * @param array &$namespaces - the list of canonical namespaces retrieved from 'namespace_names' will be placed here
+ * @param array &$namespaces the list of canonical namespaces retrieved from 'namespace_names' will be placed here
  * @return boolean true at all times (as a MediaWiki hook must always return a value)
  */
 function fnNamespaceHook ( array &$namespaces ) {

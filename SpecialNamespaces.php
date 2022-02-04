@@ -135,10 +135,7 @@ function fnNamespaceHook ( array &$namespaces ) {
 			}
 			throw $e;
 		}
-		$numrows = $dbr->numRows( $res );
-		if ( $numrows > 0 )
-		while ( $s = $dbr->fetchObject( $res ) ) {
-
+		foreach ( $res as $s ) {
 			// for each namespace...
 			$nsindex = htmlspecialchars( $s->ns_id );
 			$nsname = htmlspecialchars( $s->ns_name );
@@ -166,7 +163,6 @@ function fnNamespaceHook ( array &$namespaces ) {
 				$namespaces[$nsindex] = $nsname;
 			}
 		}
-		$dbr->freeResult( $res );
 
 		// store this info to memcache for re-use on subsequent page loads
 		$cache->set ( $key,  array(

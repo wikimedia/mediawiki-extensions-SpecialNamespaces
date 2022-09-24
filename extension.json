@@ -1,0 +1,70 @@
+{
+	"name": "SpecialNamespaces",
+	"author": [
+		"Stephanie Amanda Stevens",
+		"SPQRobin",
+		"Stephen Kennedy",
+		"..."
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:SpecialNamespaces",
+	"descriptionmsg": "namespaces-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "specialpage",
+	"requires": {
+		"MediaWiki": ">= 1.35.0"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\SpecialNamespaces\\": "src/"
+	},
+	"ExtensionMessagesFiles": {
+		"NamespacesAlias": "SpecialNamespaces.alias.php"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\SpecialNamespaces\\Hooks"
+		}
+	},
+	"Hooks": {
+		"CanonicalNamespaces": "main",
+		"LoadExtensionSchemaUpdates": "main"
+	},
+	"MessagesDirs": {
+		"SpecialNamespaces": [
+			"i18n"
+		]
+	},
+	"SpecialPages": {
+		"Namespaces": "MediaWiki\\Extension\\SpecialNamespaces\\SpecialNamespaces"
+	},
+	"AvailableRights": [
+		"namespaces"
+	],
+	"GroupPermissions": {
+		"sysop": {
+			"namespaces": true
+		}
+	},
+	"ResourceModules": {
+		"ext.specialnamespaces": {
+			"styles": "SpecialNamespaces.css",
+			"localBasePath": "/modules",
+			"remoteExtPath": "SpecialNamespaces/modules"
+		}
+	},
+	"LogTypes": [
+		"namespaces"
+	],
+	"LogNames": {
+		"namespaces": "namespaces_logpagename"
+	},
+	"LogHeaders": {
+		"namespaces": "namespaces_logpagetext"
+	},
+	"LogActions": {
+		"namespaces/namespaces": "namespaces_logentry",
+		"namespaces/ns_add": "namespaces_log_added",
+		"namespaces/ns_delete": "namespaces_log_deleted",
+		"namespaces/ns_edit": "namespaces_log_edited"
+	},
+	"manifest_version": 2
+}

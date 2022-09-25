@@ -12,3 +12,9 @@ $specialPageAliases = array();
 $specialPageAliases['en'] = array(
 	'Namespaces' => array( 'Namespaces' ),
 );
+
+/** Polish
+ */
+$specialPageAliases['pl'] = array(
+	'Namespaces' => array( 'Przestrzenie_nazw' ),
+);

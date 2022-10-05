@@ -1,6 +1,6 @@
 {
 	"@metadata": {
-		"authors": ["SemanticPioneer"]
+		"authors": [ "SemanticPioneer" ]
 	},
 	"namespaces": "Wyświetlaj i edytuj dane przestrzeni nazw",
 	"namespaces-title-norights": "Wyświetl dane dotyczące przestrzeni nazw",
@@ -18,7 +18,7 @@
 	"namespaces_canonical_intro": "Jest to domyślna nazwa przestrzeni nazw przed tłumaczeniem.",
 	"namespaces_canonical_1_intro": "Tak. (Zwróć uwagę, że każda numerowana przestrzeń nazw ma dokładnie jedną nazwę kanoniczną).",
 	"namespaces_canonical_0_intro": "Nie.",
-	"namespaces_intro_footer": "Aby uzyskać więcej informacji, zobacz [https:\/\/www.mediawiki.org\/wiki\/Help:Namespaces\/pl Pomoc:Przestrzenie nazw].",
+	"namespaces_intro_footer": "Aby uzyskać więcej informacji, zobacz [https://www.mediawiki.org/wiki/Help:Namespaces/pl Pomoc:Przestrzenie nazw].",
 	"namespaces_1": "tak",
 	"namespaces_0": "nie",
 	"namespaces_error": "Tabela przestrzeni nazw jest pusta.",

@@ -5,7 +5,12 @@ module.exports = function ( grunt ) {
 
 	grunt.initConfig( {
 		banana: {
-			all: 'i18n/'
+			all: {
+				src: 'i18n/',
+				options: {
+					disallowBlankTranslations: false
+				}
+			}
 		},
 		eslint: {
 			options: {

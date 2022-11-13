@@ -1,6 +1,14 @@
 <?php
 
+namespace MediaWiki\Extension\SpecialNamespaces;
+
 use MediaWiki\MediaWikiServices;
+use Html;
+use Linker;
+use LogPage;
+use PermissionsError;
+use SpecialPage;
+use Xml;
 
 /**
  * implements Special:Namespaces
@@ -117,7 +125,7 @@ class SpecialNamespaces extends SpecialPage {
 				$button = wfMessage( 'edit' )->text();
 			} else {
 				$nsid = $req->getVal( 'wpNamespacesID' ) ? $req->getVal( 'wpNamespacesID' ) : $req->getVal( 'prefix' );
-				$nsid = Xml::input( 'wpNamespacesID', 20, $nsid, array( 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ) );
+				$nsid = Xml::input( 'wpNamespacesID', 20, $nsid ?? '', array( 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ) );
 				$nsdefault = $req->getCheck( 'wpNamespacesDefault' );
 				$nscanonical = $req->getCheck( 'wpNamespacesCanonical' );
 				$old = '';
@@ -163,7 +171,7 @@ class SpecialNamespaces extends SpecialPage {
 
 	function doSubmit() {
 		$req = $this->getRequest();
-		$nsoldname = $req->getVal( 'wpNamespacesOldName' );
+		$nsoldname = $req->getVal( 'wpNamespacesOldName', '' );
 		$nsid = $req->getVal( 'wpNamespacesID' );
 		$do = $req->getVal( 'wpNamespacesAction' );
 		$nsoldname = str_replace( '+', '_', $nsoldname );

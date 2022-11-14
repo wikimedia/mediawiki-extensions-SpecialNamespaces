@@ -5,16 +5,18 @@
  * @addtogroup Extensions
  */
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
-/** English
+/**
+ * English
  */
-$specialPageAliases['en'] = array(
-	'Namespaces' => array( 'Namespaces' ),
-);
+$specialPageAliases['en'] = [
+	'Namespaces' => [ 'Namespaces' ],
+];
 
-/** Polish
+/**
+ * Polish
  */
-$specialPageAliases['pl'] = array(
-	'Namespaces' => array( 'Przestrzenie_nazw' ),
-);
+$specialPageAliases['pl'] = [
+	'Namespaces' => [ 'Przestrzenie_nazw' ],
+];

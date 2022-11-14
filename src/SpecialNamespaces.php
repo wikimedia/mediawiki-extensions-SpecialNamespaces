@@ -2,10 +2,10 @@
 
 namespace MediaWiki\Extension\SpecialNamespaces;
 
-use MediaWiki\MediaWikiServices;
 use Html;
 use Linker;
 use LogPage;
+use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use SpecialPage;
 use Xml;
@@ -43,8 +43,8 @@ class SpecialNamespaces extends SpecialPage {
 
 		switch ( $action ) {
 		case "delete":
-		case "edit" :
-		case "add" :
+		case "edit":
+		case "add":
 			if ( !$admin ) {
 				throw new PermissionsError( 'namespaces' );
 			}
@@ -74,7 +74,6 @@ class SpecialNamespaces extends SpecialPage {
 
 		switch ( $action ) {
 		case "delete":
-
 			$nsid = $req->getVal( 'prefix' );
 			$nsoldname = $req->getVal( 'name' );
 			$button = wfMessage( 'delete' )->text();
@@ -85,14 +84,14 @@ class SpecialNamespaces extends SpecialPage {
 			$this->getOutput()->addHTML(
 				Xml::openElement( 'fieldset' ) .
 				Xml::element( 'legend', null, $topmessage ) .
-				Xml::openElement( 'form', array( 'id' => 'mw-namespaces-deleteform', 'method' => 'post', 'action' => $actionUrl ) ) .
+				Xml::openElement( 'form', [ 'id' => 'mw-namespaces-deleteform', 'method' => 'post', 'action' => $actionUrl ] ) .
 				Xml::openElement( 'table' ) .
 				"<tr><td>$deletingmessage</td></tr>" .
 				'<tr><td class="mw-label">' . Xml::label( $reasonmessage, 'mw-namespaces-deletereason' ) . '</td>' .
 				'<td class="mw-input">' .
-				Xml::input( 'wpNamespacesReason', 60, $defaultreason, array( 'tabindex' => '1', 'id' => 'mw-namespaces-deletereason', 'maxlength' => '200' ) ) .
+				Xml::input( 'wpNamespacesReason', 60, $defaultreason, [ 'tabindex' => '1', 'id' => 'mw-namespaces-deletereason', 'maxlength' => '200' ] ) .
 				'</td></tr>' .
-				'<tr><td class="mw-submit">' . Xml::submitButton( $button, array( 'id' => 'mw-namespaces-submit' ) ) .
+				'<tr><td class="mw-submit">' . Xml::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) .
 				Html::hidden( 'wpNamespacesID', $nsid ) .
 				Html::hidden( 'wpNamespacesOldName', $nsoldname ) .
 				Html::hidden( 'wpNamespacesAction', $action ) .
@@ -103,13 +102,13 @@ class SpecialNamespaces extends SpecialPage {
 				Xml::closeElement( 'fieldset' )
 			);
 			break;
-		case "edit" :
-		case "add" :
+		case "edit":
+		case "add":
 			if ( $action == "edit" ) {
 				$nsid = $req->getVal( 'prefix' );
 				$nsoldname = $req->getVal( 'name' );
 				$dbr = wfGetDB( DB_REPLICA );
-				$row = $dbr->selectRow( 'namespace_names', '*', array( 'ns_name' => $nsoldname, 'ns_id' => $nsid ) );
+				$row = $dbr->selectRow( 'namespace_names', '*', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ] );
 				if ( !$row ) {
 					$this->error( 'namespaces_editerror', $nsoldname );
 					return;
@@ -125,11 +124,11 @@ class SpecialNamespaces extends SpecialPage {
 				$button = wfMessage( 'edit' )->text();
 			} else {
 				$nsid = $req->getVal( 'wpNamespacesID' ) ? $req->getVal( 'wpNamespacesID' ) : $req->getVal( 'prefix' );
-				$nsid = Xml::input( 'wpNamespacesID', 20, $nsid ?? '', array( 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ) );
+				$nsid = Xml::input( 'wpNamespacesID', 20, $nsid ?? '', [ 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ] );
 				$nsdefault = $req->getCheck( 'wpNamespacesDefault' );
 				$nscanonical = $req->getCheck( 'wpNamespacesCanonical' );
 				$old = '';
-				$defaultname = $req->getVal( 'wpNamespacesName' ) ? $req->getVal( 'wpNamespacesName' ) : wfMessage( 'namespaces_defaultname' )->text() ;
+				$defaultname = $req->getVal( 'wpNamespacesName' ) ? $req->getVal( 'wpNamespacesName' ) : wfMessage( 'namespaces_defaultname' )->text();
 				$topmessage = wfMessage( 'namespaces_addtext' )->parse();
 				$intromessage = wfMessage( 'namespaces_addintro' )->parse();
 				$button = wfMessage( 'namespaces_addbutton' )->text();
@@ -145,22 +144,22 @@ class SpecialNamespaces extends SpecialPage {
 				Xml::openElement( 'fieldset' ) .
 				Xml::element( 'legend', null, $topmessage ) .
 				$intromessage .
-				Xml::openElement( 'form', array( 'id' => 'mw-namespaces-editform', 'method' => 'post', 'action' => $actionUrl ) ) .
-				Xml::openElement( 'table', array( 'id' => "mw-namespaces-$action" ) ) .
+				Xml::openElement( 'form', [ 'id' => 'mw-namespaces-editform', 'method' => 'post', 'action' => $actionUrl ] ) .
+				Xml::openElement( 'table', [ 'id' => "mw-namespaces-$action" ] ) .
 				"<tr><td class='mw-label'>$nsidmessage</td><td><tt>$nsid</tt></td></tr>" .
 				"<tr><td class='mw-label'>" . Xml::label( $nsdefaultmessage, 'mw-namespaces-nsdefault' ) . '</td>' .
-				"<td class='mw-input'>" . Xml::check( 'wpNamespacesDefault', $nsdefault, array( 'id' => 'mw-namespaces-nsdefault' ) ) . '</td></tr>' .
+				"<td class='mw-input'>" . Xml::check( 'wpNamespacesDefault', $nsdefault, [ 'id' => 'mw-namespaces-nsdefault' ] ) . '</td></tr>' .
 				'<tr><td class="mw-label">' . Xml::label( $nscanonicalmessage, 'mw-namespaces-nscanonical' ) . '</td>' .
-				'<td class="mw-input">' .  Xml::check( 'wpNamespacesCanonical', $nscanonical, array( 'id' => 'mw-namespaces-nscanonical' ) ) . '</td></tr>' .
+				'<td class="mw-input">' . Xml::check( 'wpNamespacesCanonical', $nscanonical, [ 'id' => 'mw-namespaces-nscanonical' ] ) . '</td></tr>' .
 				'<tr><td class="mw-label">' . Xml::label( $nsnamemessage, 'mw-namespaces-nsname' ) . '</td>' .
-				'<td class="mw-input">' . Xml::input( 'wpNamespacesName', 60, $defaultname, array( 'tabindex' => '1', 'maxlength' => '200', 'id' => 'mw-namespaces-nsname' ) ) . '</td></tr>' .
+				'<td class="mw-input">' . Xml::input( 'wpNamespacesName', 60, $defaultname, [ 'tabindex' => '1', 'maxlength' => '200', 'id' => 'mw-namespaces-nsname' ] ) . '</td></tr>' .
 				'<tr><td class="mw-label">' . Xml::label( $reasonmessage, 'mw-namespaces-editreason' ) . '</td>' .
-				'<td class="mw-input">' . Xml::input( 'wpNamespacesReason', 60, $defaultreason, array( 'tabindex' => '1', 'id' => 'mw-namespaces-editreason', 'maxlength' => '200' ) ) .
+				'<td class="mw-input">' . Xml::input( 'wpNamespacesReason', 60, $defaultreason, [ 'tabindex' => '1', 'id' => 'mw-namespaces-editreason', 'maxlength' => '200' ] ) .
 				Html::hidden( 'wpNamespacesAction', $action ) .
 				$old .
 				Html::hidden( 'wpEditToken', $token ) .
 				'</td></tr>' .
-				'<tr><td class="mw-submit">' . Xml::submitButton( $button, array( 'id' => 'mw-namespaces-submit' ) ) . '</td></tr>' .
+				'<tr><td class="mw-submit">' . Xml::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) . '</td></tr>' .
 				Xml::closeElement( 'table' ) .
 				Xml::closeElement( 'form' ) .
 				Xml::closeElement( 'fieldset' )
@@ -185,7 +184,7 @@ class SpecialNamespaces extends SpecialPage {
 		$dbw = wfGetDB( DB_MASTER );
 		switch ( $do ) {
 		case "delete":
-			$dbw->delete( 'namespace_names', array( 'ns_name' => $nsoldname, 'ns_id' => $nsid ), __METHOD__ );
+			$dbw->delete( 'namespace_names', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ], __METHOD__ );
 
 			if ( $dbw->affectedRows() == 0 ) {
 				$this->error( 'namespaces_delfailed', $nsoldname );
@@ -200,7 +199,7 @@ class SpecialNamespaces extends SpecialPage {
 				}
 				$out->returnToMain( false, $selfTitle );
 				$log = new LogPage( 'namespaces' );
-				$log->addEntry( 'ns_delete', $selfTitle, $reason, array( $nsoldname ), $this->getUser() );
+				$log->addEntry( 'ns_delete', $selfTitle, $reason, [ $nsoldname ], $this->getUser() );
 			}
 			$this->discard();
 			break;
@@ -209,13 +208,13 @@ class SpecialNamespaces extends SpecialPage {
 			$newname = $req->getVal( 'wpNamespacesName' );
 			$nsdefault = $req->getCheck( 'wpNamespacesDefault' ) ? 1 : 0;
 			$nscanonical = $req->getCheck( 'wpNamespacesCanonical' ) ? 1 : 0;
-			$data = array( 'ns_id' => $nsid, 'ns_name' => $newname,
-				'ns_default'  => $nsdefault, 'ns_canonical'  => $nscanonical );
+			$data = [ 'ns_id' => $nsid, 'ns_name' => $newname,
+				'ns_default'  => $nsdefault, 'ns_canonical'  => $nscanonical ];
 
 			if ( $do == 'add' ) {
 				$dbw->insert( 'namespace_names', $data, __METHOD__, 'IGNORE' );
 			} else {
-				$dbw->update( 'namespace_names', $data, array( 'ns_name' => $nsoldname ), __METHOD__, 'IGNORE' );
+				$dbw->update( 'namespace_names', $data, [ 'ns_name' => $nsoldname ], __METHOD__, 'IGNORE' );
 			}
 
 			if ( $dbw->affectedRows() == 0 ) {
@@ -229,7 +228,7 @@ class SpecialNamespaces extends SpecialPage {
 					'ns_' . $do,
 					$selfTitle,
 					$reason,
-					array( $nsid, $newname, $nsdefault, $nscanonical ),
+					[ $nsid, $newname, $nsdefault, $nscanonical ],
 					$this->getUser()
 				);
 			}
@@ -238,17 +237,18 @@ class SpecialNamespaces extends SpecialPage {
 		}
 	}
 
+	// phpcs:ignore MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 	function trans_default( $tl, $msg0, $msg1 ) {
-		if ( $tl === '0' )
+		if ( $tl === '0' ) {
 			return $msg0;
-		if ( $tl === '1' )
+		}
+		if ( $tl === '1' ) {
 			return $msg1;
+		}
 		return htmlspecialchars( $tl );
 	}
 
 	function showList( $admin ) {
-		global $wgScriptPath;
-
 		$this->getOutput()->addModuleStyles( "ext.specialnamespaces" );
 
 		$nsidmessage = wfMessage( 'namespaces_nsid' )->parse();
@@ -280,12 +280,12 @@ class SpecialNamespaces extends SpecialPage {
 		if ( $admin ) {
 			$skin = $this->getSkin();
 			$addtext = wfMessage( 'namespaces_addtext' )->parse();
-			$addlink = Linker::link( $selfTitle, $addtext, array(), array( 'action' => 'add' ) );
+			$addlink = Linker::link( $selfTitle, $addtext, [], [ 'action' => 'add' ] );
 			$this->getOutput()->addHTML( '<p>' . $addlink . '</p>' );
 		}
 
 		$dbr = wfGetDB( DB_REPLICA );
-		$res = $dbr->select( 'namespace_names', '*', '1', __METHOD__, array( 'ORDER BY' => 'ns_id' ) );
+		$res = $dbr->select( 'namespace_names', '*', '1', __METHOD__, [ 'ORDER BY' => 'ns_id' ] );
 		$numrows = $res->numRows();
 		if ( $numrows == 0 ) {
 			$this->error( 'namespaces_error' );
@@ -302,6 +302,7 @@ class SpecialNamespaces extends SpecialPage {
 		}
 		$out .= "</tr>\n";
 
+		// phpcs:ignore MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures
 		while ( $s = $res->fetchObject() ) {
 			$nsid = htmlspecialchars( $s->ns_id );
 			$nsname = htmlspecialchars( $s->ns_name );
@@ -314,11 +315,11 @@ class SpecialNamespaces extends SpecialPage {
 				<td class='mw-namespacestable-nscanonical'>$nscanonical</td>";
 			if ( $admin ) {
 				$out .= '<td class="mw-namespacestable-modify">';
-				$out .= Linker::link( $selfTitle, $editmessage, array(),
-					array( 'action' => 'edit', 'prefix' => $nsid, 'name' => $nsname ) );
+				$out .= Linker::link( $selfTitle, $editmessage, [],
+					[ 'action' => 'edit', 'prefix' => $nsid, 'name' => $nsname ] );
 				$out .= ', ';
-				$out .= Linker::link( $selfTitle, $deletemessage, array(),
-					array( 'action' => 'delete', 'prefix' => $nsid, 'name' => $nsname ) );
+				$out .= Linker::link( $selfTitle, $deletemessage, [],
+					[ 'action' => 'delete', 'prefix' => $nsid, 'name' => $nsname ] );
 				$out .= '</td>';
 			}
 
@@ -334,6 +335,7 @@ class SpecialNamespaces extends SpecialPage {
 		$this->getOutput()->wrapWikiMsg( "<p class='error'>$1</p>", $args );
 	}
 
+	/** @inheritDoc */
 	protected function getGroupName() {
 		return 'wiki';
 	}

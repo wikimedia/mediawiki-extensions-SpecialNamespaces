@@ -26,25 +26,24 @@ class Hooks implements CanonicalNamespacesHook, LoadExtensionSchemaUpdatesHook {
 	 * Use of memcached (where available) is necessary to avoid severe performance penalty for multiple db accesses
 	 *
 	 * @param array &$namespaces the list of canonical namespaces retrieved from 'namespace_names' will be placed here
-	 * @return boolean true at all times (as a MediaWiki hook must always return a value)
+	 * @return bool true at all times (as a MediaWiki hook must always return a value)
 	 */
 	public function onCanonicalNamespaces( &$namespaces ) {
 		global $wgExtraNamespaces, $wgNamespaceAliases;
-		global $wgDBname;
 		global $wgSitename, $wgMetaNamespace, $wgMetaNamespaceTalk;
 
-		if ( $wgExtraNamespaces == NULL ) {
-			$wgExtraNamespaces = array();
+		if ( $wgExtraNamespaces == null ) {
+			$wgExtraNamespaces = [];
 		}
-		if ( $wgNamespaceAliases == NULL ) {
-			$wgNamespaceAliases = array();
+		if ( $wgNamespaceAliases == null ) {
+			$wgNamespaceAliases = [];
 		}
 
 		$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
 		$key = $cache->makeKey( 'SpecialNamespaces', 'names' );
 		$cached = $cache->get( $key );
 
-		if ( ( $cached == NULL ) || ( !is_array( $cached ) ) ) {
+		if ( ( $cached == null ) || ( !is_array( $cached ) ) ) {
 
 			// if namespaces are not in memcache, retrieve them from main database
 			$dbr = wfGetDB( DB_REPLICA );
@@ -87,14 +86,14 @@ class Hooks implements CanonicalNamespacesHook, LoadExtensionSchemaUpdatesHook {
 			}
 
 			// store this info to memcache for re-use on subsequent page loads
-			$cache->set ( $key,  array(
+			$cache->set( $key, [
 				'ns' => $namespaces,
 				'ens' => $wgExtraNamespaces,
 				'aka' => $wgNamespaceAliases,
 				'site' => $wgSitename,
 				'project' => $wgMetaNamespace,
 				'prjtalk' => $wgMetaNamespaceTalk
-			) );
+			] );
 		} else {
 			// if data was retrieved from memcache, use it directly
 			$namespaces = $cached['ns'];

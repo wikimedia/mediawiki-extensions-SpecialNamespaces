@@ -7,7 +7,7 @@
 	"namespaces-desc": "{{desc|name=SpecialNamespaces|url=https://www.mediawiki.org/wiki/Extension:SpecialNamespaces}}",
 	"namespaces_intro": "Part of the namespaces extension. Shown as introductory text on [[Special:Namespaces]].",
 	"namespaces_nsid": "Used on [[Special:Namespaces]] as a column header of the table.",
-	"namespaces_nsid_intro": "Used on [[Special:Namespaces]] so as to explain the data in the {{msg-mw|namespaces_nsid}} column of the table. ",
+	"namespaces_nsid_intro": "Used on [[Special:Namespaces]] so as to explain the data in the {{msg-mw|namespaces_nsid}} column of the table.",
 	"namespaces_nsname": "Used on [[Special:Namespaces]] as a column header of the table.",
 	"namespaces_nsname_intro": "Used on [[Special:Namespaces]] so as to explain the data in the {{msg-mw|namespaces_nsname}} column of the table.",
 	"namespaces_default": "Used on [[Special:Namespaces]] as a column header.",

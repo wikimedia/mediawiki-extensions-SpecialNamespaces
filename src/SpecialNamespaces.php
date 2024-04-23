@@ -42,27 +42,27 @@ class SpecialNamespaces extends SpecialPage {
 		$action = $req->getVal( 'action', $par );
 
 		switch ( $action ) {
-		case "delete":
-		case "edit":
-		case "add":
-			if ( !$admin ) {
-				throw new PermissionsError( 'namespaces' );
-			}
-			$this->showForm( $action );
-			break;
-		case "submit":
-			if ( !$admin ) {
-				throw new PermissionsError( 'namespaces' );
-			}
-			if ( !$req->wasPosted() || !$this->getUser()->matchEditToken( $req->getVal( 'wpEditToken' ) ) ) {
-				$this->getOutput()->addWikiMsg( 'sessionfailure' );
-				return;
-			}
-			$this->doSubmit();
-			break;
-		default:
-			$this->showList( $admin );
-			break;
+			case "delete":
+			case "edit":
+			case "add":
+				if ( !$admin ) {
+					throw new PermissionsError( 'namespaces' );
+				}
+				$this->showForm( $action );
+				break;
+			case "submit":
+				if ( !$admin ) {
+					throw new PermissionsError( 'namespaces' );
+				}
+				if ( !$req->wasPosted() || !$this->getUser()->matchEditToken( $req->getVal( 'wpEditToken' ) ) ) {
+					$this->getOutput()->addWikiMsg( 'sessionfailure' );
+					return;
+				}
+				$this->doSubmit();
+				break;
+			default:
+				$this->showList( $admin );
+				break;
 		}
 	}
 
@@ -73,15 +73,15 @@ class SpecialNamespaces extends SpecialPage {
 		$defaultreason = $req->getVal( 'wpNamespacesReason', wfMessage( 'namespaces_defaultreason' )->text() );
 
 		switch ( $action ) {
-		case "delete":
-			$nsid = $req->getVal( 'prefix' );
-			$nsoldname = $req->getVal( 'name' );
-			$button = wfMessage( 'delete' )->text();
-			$topmessage = wfMessage( 'namespaces_delquestion', $nsid )->text();
-			$deletingmessage = wfMessage( 'namespaces_deleting', $nsoldname )->text();
-			$reasonmessage = wfMessage( 'deletecomment' )->text();
+			case "delete":
+				$nsid = $req->getVal( 'prefix' );
+				$nsoldname = $req->getVal( 'name' );
+				$button = wfMessage( 'delete' )->text();
+				$topmessage = wfMessage( 'namespaces_delquestion', $nsid )->text();
+				$deletingmessage = wfMessage( 'namespaces_deleting', $nsoldname )->text();
+				$reasonmessage = wfMessage( 'deletecomment' )->text();
 
-			$this->getOutput()->addHTML(
+				$this->getOutput()->addHTML(
 				Xml::openElement( 'fieldset' ) .
 				Xml::element( 'legend', null, $topmessage ) .
 				Xml::openElement( 'form', [ 'id' => 'mw-namespaces-deleteform', 'method' => 'post', 'action' => $actionUrl ] ) .
@@ -100,47 +100,47 @@ class SpecialNamespaces extends SpecialPage {
 				Xml::closeElement( 'table' ) .
 				Xml::closeElement( 'form' ) .
 				Xml::closeElement( 'fieldset' )
-			);
-			break;
-		case "edit":
-		case "add":
-			if ( $action == "edit" ) {
-				$nsid = $req->getVal( 'prefix' );
-				$nsoldname = $req->getVal( 'name' );
-				$dbr = wfGetDB( DB_REPLICA );
-				$row = $dbr->selectRow( 'namespace_names', '*', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ] );
-				if ( !$row ) {
-					$this->error( 'namespaces_editerror', $nsoldname );
-					return;
+				);
+				break;
+			case "edit":
+			case "add":
+				if ( $action == "edit" ) {
+					$nsid = $req->getVal( 'prefix' );
+					$nsoldname = $req->getVal( 'name' );
+					$dbr = wfGetDB( DB_REPLICA );
+					$row = $dbr->selectRow( 'namespace_names', '*', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ] );
+					if ( !$row ) {
+						$this->error( 'namespaces_editerror', $nsoldname );
+						return;
+					}
+					$nsid = '<tt>' . htmlspecialchars( $row->ns_id ) . '</tt>';
+					$defaultname = $row->ns_name;
+					$nsdefault = $row->ns_default;
+					$nscanonical = $row->ns_canonical;
+					$old = Html::hidden( 'wpNamespacesID', $row->ns_id );
+					$old .= Html::hidden( 'wpNamespacesOldName', $row->ns_name );
+					$topmessage = wfMessage( 'namespaces_edittext' )->parse();
+					$intromessage = wfMessage( 'namespaces_editintro' )->parse();
+					$button = wfMessage( 'edit' )->text();
+				} else {
+					$nsid = $req->getVal( 'wpNamespacesID' ) ? $req->getVal( 'wpNamespacesID' ) : $req->getVal( 'prefix' );
+					$nsid = Xml::input( 'wpNamespacesID', 20, $nsid ?? '', [ 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ] );
+					$nsdefault = $req->getCheck( 'wpNamespacesDefault' );
+					$nscanonical = $req->getCheck( 'wpNamespacesCanonical' );
+					$old = '';
+					$defaultname = $req->getVal( 'wpNamespacesName' ) ? $req->getVal( 'wpNamespacesName' ) : wfMessage( 'namespaces_defaultname' )->text();
+					$topmessage = wfMessage( 'namespaces_addtext' )->parse();
+					$intromessage = wfMessage( 'namespaces_addintro' )->parse();
+					$button = wfMessage( 'namespaces_addbutton' )->text();
 				}
-				$nsid = '<tt>' . htmlspecialchars( $row->ns_id ) . '</tt>';
-				$defaultname = $row->ns_name;
-				$nsdefault = $row->ns_default;
-				$nscanonical = $row->ns_canonical;
-				$old = Html::hidden( 'wpNamespacesID', $row->ns_id );
-				$old .= Html::hidden( 'wpNamespacesOldName', $row->ns_name );
-				$topmessage = wfMessage( 'namespaces_edittext' )->parse();
-				$intromessage = wfMessage( 'namespaces_editintro' )->parse();
-				$button = wfMessage( 'edit' )->text();
-			} else {
-				$nsid = $req->getVal( 'wpNamespacesID' ) ? $req->getVal( 'wpNamespacesID' ) : $req->getVal( 'prefix' );
-				$nsid = Xml::input( 'wpNamespacesID', 20, $nsid ?? '', [ 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ] );
-				$nsdefault = $req->getCheck( 'wpNamespacesDefault' );
-				$nscanonical = $req->getCheck( 'wpNamespacesCanonical' );
-				$old = '';
-				$defaultname = $req->getVal( 'wpNamespacesName' ) ? $req->getVal( 'wpNamespacesName' ) : wfMessage( 'namespaces_defaultname' )->text();
-				$topmessage = wfMessage( 'namespaces_addtext' )->parse();
-				$intromessage = wfMessage( 'namespaces_addintro' )->parse();
-				$button = wfMessage( 'namespaces_addbutton' )->text();
-			}
 
-			$nsidmessage = wfMessage( 'namespaces_nsid' )->parse();
-			$nsdefaultmessage = wfMessage( 'namespaces_default' )->text();
-			$nscanonicalmessage = wfMessage( 'namespaces_canonical' )->text();
-			$reasonmessage = wfMessage( 'namespaces_reasonfield' )->text();
-			$nsnamemessage = wfMessage( 'namespaces_nsname' )->text();
+				$nsidmessage = wfMessage( 'namespaces_nsid' )->parse();
+				$nsdefaultmessage = wfMessage( 'namespaces_default' )->text();
+				$nscanonicalmessage = wfMessage( 'namespaces_canonical' )->text();
+				$reasonmessage = wfMessage( 'namespaces_reasonfield' )->text();
+				$nsnamemessage = wfMessage( 'namespaces_nsname' )->text();
 
-			$this->getOutput()->addHTML(
+				$this->getOutput()->addHTML(
 				Xml::openElement( 'fieldset' ) .
 				Xml::element( 'legend', null, $topmessage ) .
 				$intromessage .
@@ -163,8 +163,8 @@ class SpecialNamespaces extends SpecialPage {
 				Xml::closeElement( 'table' ) .
 				Xml::closeElement( 'form' ) .
 				Xml::closeElement( 'fieldset' )
-			);
-			break;
+				);
+				break;
 		}
 	}
 
@@ -183,57 +183,57 @@ class SpecialNamespaces extends SpecialPage {
 		$selfTitle = $this->getPageTitle();
 		$dbw = wfGetDB( DB_MASTER );
 		switch ( $do ) {
-		case "delete":
-			$dbw->delete( 'namespace_names', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ], __METHOD__ );
+			case "delete":
+				$dbw->delete( 'namespace_names', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ], __METHOD__ );
 
-			if ( $dbw->affectedRows() == 0 ) {
-				$this->error( 'namespaces_delfailed', $nsoldname );
-				$this->showForm( $do );
-			} else {
-				$out = $this->getOutput();
-				if ( method_exists( $out, 'addWikiTextAsInterface' ) ) {
-					// MW 1.32+
-					$out->addWikiTextAsInterface( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
+				if ( $dbw->affectedRows() == 0 ) {
+					$this->error( 'namespaces_delfailed', $nsoldname );
+					$this->showForm( $do );
 				} else {
-					$out->addWikiText( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
+					$out = $this->getOutput();
+					if ( method_exists( $out, 'addWikiTextAsInterface' ) ) {
+						// MW 1.32+
+						$out->addWikiTextAsInterface( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
+					} else {
+						$out->addWikiText( wfMessage( 'namespaces_deleted', $nsoldname )->text() );
+					}
+					$out->returnToMain( false, $selfTitle );
+					$log = new LogPage( 'namespaces' );
+					$log->addEntry( 'ns_delete', $selfTitle, $reason, [ $nsoldname ], $this->getUser() );
 				}
-				$out->returnToMain( false, $selfTitle );
-				$log = new LogPage( 'namespaces' );
-				$log->addEntry( 'ns_delete', $selfTitle, $reason, [ $nsoldname ], $this->getUser() );
-			}
-			$this->discard();
-			break;
-		case "edit":
-		case "add":
-			$newname = $req->getVal( 'wpNamespacesName' );
-			$nsdefault = $req->getCheck( 'wpNamespacesDefault' ) ? 1 : 0;
-			$nscanonical = $req->getCheck( 'wpNamespacesCanonical' ) ? 1 : 0;
-			$data = [ 'ns_id' => $nsid, 'ns_name' => $newname,
+				$this->discard();
+				break;
+			case "edit":
+			case "add":
+				$newname = $req->getVal( 'wpNamespacesName' );
+				$nsdefault = $req->getCheck( 'wpNamespacesDefault' ) ? 1 : 0;
+				$nscanonical = $req->getCheck( 'wpNamespacesCanonical' ) ? 1 : 0;
+				$data = [ 'ns_id' => $nsid, 'ns_name' => $newname,
 				'ns_default'  => $nsdefault, 'ns_canonical'  => $nscanonical ];
 
-			if ( $do == 'add' ) {
-				$dbw->insert( 'namespace_names', $data, __METHOD__, 'IGNORE' );
-			} else {
-				$dbw->update( 'namespace_names', $data, [ 'ns_name' => $nsoldname ], __METHOD__, 'IGNORE' );
-			}
+				if ( $do == 'add' ) {
+					$dbw->insert( 'namespace_names', $data, __METHOD__, 'IGNORE' );
+				} else {
+					$dbw->update( 'namespace_names', $data, [ 'ns_name' => $nsoldname ], __METHOD__, 'IGNORE' );
+				}
 
-			if ( $dbw->affectedRows() == 0 ) {
-				$this->error( "namespaces_{$do}failed", $nsid );
-				$this->showForm( $do );
-			} else {
-				$this->getOutput()->addWikiMsg( "namespaces_{$do}ed", $nsid );
-				$this->getOutput()->returnToMain( false, $selfTitle );
-				$log = new LogPage( 'namespaces' );
-				$log->addEntry(
+				if ( $dbw->affectedRows() == 0 ) {
+					$this->error( "namespaces_{$do}failed", $nsid );
+					$this->showForm( $do );
+				} else {
+					$this->getOutput()->addWikiMsg( "namespaces_{$do}ed", $nsid );
+					$this->getOutput()->returnToMain( false, $selfTitle );
+					$log = new LogPage( 'namespaces' );
+					$log->addEntry(
 					'ns_' . $do,
 					$selfTitle,
 					$reason,
 					[ $nsid, $newname, $nsdefault, $nscanonical ],
 					$this->getUser()
-				);
-			}
-			$this->discard();
-			break;
+					);
+				}
+				$this->discard();
+				break;
 		}
 	}
 

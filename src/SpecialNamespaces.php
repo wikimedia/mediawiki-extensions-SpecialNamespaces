@@ -181,7 +181,7 @@ class SpecialNamespaces extends SpecialPage {
 		}
 		$reason = $req->getText( 'wpNamespacesReason' );
 		$selfTitle = $this->getPageTitle();
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		switch ( $do ) {
 			case "delete":
 				$dbw->delete( 'namespace_names', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ], __METHOD__ );

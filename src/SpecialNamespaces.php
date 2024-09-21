@@ -107,7 +107,7 @@ class SpecialNamespaces extends SpecialPage {
 				if ( $action == "edit" ) {
 					$nsid = $req->getVal( 'prefix' );
 					$nsoldname = $req->getVal( 'name' );
-					$dbr = wfGetDB( DB_REPLICA );
+					$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 					$row = $dbr->selectRow( 'namespace_names', '*', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ] );
 					if ( !$row ) {
 						$this->error( 'namespaces_editerror', $nsoldname );
@@ -181,7 +181,7 @@ class SpecialNamespaces extends SpecialPage {
 		}
 		$reason = $req->getText( 'wpNamespacesReason' );
 		$selfTitle = $this->getPageTitle();
-		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		switch ( $do ) {
 			case "delete":
 				$dbw->delete( 'namespace_names', [ 'ns_name' => $nsoldname, 'ns_id' => $nsid ], __METHOD__ );
@@ -284,7 +284,7 @@ class SpecialNamespaces extends SpecialPage {
 			$this->getOutput()->addHTML( '<p>' . $addlink . '</p>' );
 		}
 
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$res = $dbr->select( 'namespace_names', '*', '1', __METHOD__, [ 'ORDER BY' => 'ns_id' ] );
 		$numrows = $res->numRows();
 		if ( $numrows == 0 ) {

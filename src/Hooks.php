@@ -46,7 +46,7 @@ class Hooks implements CanonicalNamespacesHook, LoadExtensionSchemaUpdatesHook {
 		if ( ( $cached == null ) || ( !is_array( $cached ) ) ) {
 
 			// if namespaces are not in memcache, retrieve them from main database
-			$dbr = wfGetDB( DB_REPLICA );
+			$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 			try {
 				$res = $dbr->select( 'namespace_names', '*' );
 			} catch ( DBError $e ) {

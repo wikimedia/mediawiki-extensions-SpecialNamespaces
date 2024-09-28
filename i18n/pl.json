@@ -24,7 +24,6 @@
 	"namespaces_error": "Tabela przestrzeni nazw jest pusta.",
 	"namespaces_edit": "Edytuj",
 	"namespaces_reasonfield": "Powód",
-	"namespaces_defaultreason": "",
 	"namespaces_delquestion": "Usuwanie „$1”",
 	"namespaces_deleting": "Usuwasz przestrzeń nazw „$1”.",
 	"namespaces_deleted": "Przestrzeń nazw „$1” została usunięta z tabeli przestrzeni nazw.",
@@ -34,7 +33,6 @@
 	"namespaces_addbutton": "Dodaj",
 	"namespaces_added": "Przestrzeń nazw „$1” została dodana do tabeli przestrzeni nazw.",
 	"namespaces_addfailed": "Nie można dodać przestrzeni nazw „$1” do tabeli przestrzeni nazw.",
-	"namespaces_defaultname": "",
 	"namespaces_edittext": "Edycja przestrzeni nazw",
 	"namespaces_editintro": "Edytujesz przestrzeń nazw.\nPamiętaj, że może to spowodować uszkodzenie istniejących linków.",
 	"namespaces_edited": "Przestrzeń nazw „$1” została zmodyfikowana w tabeli przestrzeni nazw.",
@@ -45,7 +43,6 @@
 	"namespaces_log_edited": "zmodyfikowano \"$2\" : ($3) (domyślna: $4) (kanoniczna: $5)",
 	"namespaces_log_deleted": "usunięto „$2” z przestrzeni nazw",
 	"namespaces_logpagetext": "To jest dziennik zmian w [[Specjalna:Przestrzenie nazw|przestrzeni nazw]].",
-	"namespaces_logentry": "",
 	"right-namespaces": "Edytuj dane przestrzeni nazw",
 	"action-namespaces": "zmień ten wpis przestrzeni nazw"
 }

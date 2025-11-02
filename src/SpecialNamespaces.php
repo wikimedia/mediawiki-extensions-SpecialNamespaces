@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\SpecialNamespaces;
 
-use Html;
-use Linker;
 use LogPage;
+use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use SpecialPage;

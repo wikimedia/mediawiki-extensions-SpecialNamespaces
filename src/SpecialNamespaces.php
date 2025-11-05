@@ -34,9 +34,9 @@ class SpecialNamespaces extends SpecialPage {
 		$this->outputHeader();
 
 		if ( $admin ) {
-			$this->getOutput()->setPageTitle( wfMessage( 'namespaces' ) );
+			$this->getOutput()->setPageTitle( $this->msg( 'namespaces' )->escaped() );
 		} else {
-			$this->getOutput()->setPageTitle( wfMessage( 'namespaces-title-norights' ) );
+			$this->getOutput()->setPageTitle( $this->msg( 'namespaces-title-norights' )->escaped() );
 		}
 		$req = $this->getRequest();
 		$action = $req->getVal( 'action', $par );

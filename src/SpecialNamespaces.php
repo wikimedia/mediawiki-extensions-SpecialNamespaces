@@ -8,7 +8,6 @@ use MediaWiki\Linker\Linker;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use SpecialPage;
-use Xml;
 
 /**
  * implements Special:Namespaces
@@ -82,12 +81,12 @@ class SpecialNamespaces extends SpecialPage {
 				$reasonmessage = wfMessage( 'deletecomment' )->text();
 
 				$this->getOutput()->addHTML(
-				Xml::openElement( 'fieldset' ) .
-				Xml::element( 'legend', null, $topmessage ) .
-				Xml::openElement( 'form', [ 'id' => 'mw-namespaces-deleteform', 'method' => 'post', 'action' => $actionUrl ] ) .
-				Xml::openElement( 'table' ) .
+				Html::openElement( 'fieldset' ) .
+				Html::element( 'legend', [], $topmessage ) .
+				Html::openElement( 'form', [ 'id' => 'mw-namespaces-deleteform', 'method' => 'post', 'action' => $actionUrl ] ) .
+				Html::openElement( 'table' ) .
 				"<tr><td>$deletingmessage</td></tr>" .
-				'<tr><td class="mw-label">' . Xml::label( $reasonmessage, 'mw-namespaces-deletereason' ) . '</td>' .
+				'<tr><td class="mw-label">' . Html::label( $reasonmessage, 'mw-namespaces-deletereason' ) . '</td>' .
 				'<td class="mw-input">' .
 				Html::input( 'wpNamespacesReason', $defaultreason, 'text', [ 'size' => 60, 'tabindex' => '1', 'id' => 'mw-namespaces-deletereason', 'maxlength' => '200' ] ) .
 				'</td></tr>' .
@@ -97,9 +96,9 @@ class SpecialNamespaces extends SpecialPage {
 				Html::hidden( 'wpNamespacesAction', $action ) .
 				Html::hidden( 'wpEditToken', $token ) .
 				'</td></tr>' .
-				Xml::closeElement( 'table' ) .
-				Xml::closeElement( 'form' ) .
-				Xml::closeElement( 'fieldset' )
+				Html::closeElement( 'table' ) .
+				Html::closeElement( 'form' ) .
+				Html::closeElement( 'fieldset' )
 				);
 				break;
 			case "edit":
@@ -141,28 +140,28 @@ class SpecialNamespaces extends SpecialPage {
 				$nsnamemessage = wfMessage( 'namespaces_nsname' )->text();
 
 				$this->getOutput()->addHTML(
-				Xml::openElement( 'fieldset' ) .
-				Xml::element( 'legend', null, $topmessage ) .
+				Html::openElement( 'fieldset' ) .
+				Html::element( 'legend', [], $topmessage ) .
 				$intromessage .
-				Xml::openElement( 'form', [ 'id' => 'mw-namespaces-editform', 'method' => 'post', 'action' => $actionUrl ] ) .
-				Xml::openElement( 'table', [ 'id' => "mw-namespaces-$action" ] ) .
+				Html::openElement( 'form', [ 'id' => 'mw-namespaces-editform', 'method' => 'post', 'action' => $actionUrl ] ) .
+				Html::openElement( 'table', [ 'id' => "mw-namespaces-$action" ] ) .
 				"<tr><td class='mw-label'>$nsidmessage</td><td><tt>$nsid</tt></td></tr>" .
-				"<tr><td class='mw-label'>" . Xml::label( $nsdefaultmessage, 'mw-namespaces-nsdefault' ) . '</td>' .
+				"<tr><td class='mw-label'>" . Html::label( $nsdefaultmessage, 'mw-namespaces-nsdefault' ) . '</td>' .
 				"<td class='mw-input'>" . Html::check( 'wpNamespacesDefault', $nsdefault, [ 'id' => 'mw-namespaces-nsdefault' ] ) . '</td></tr>' .
-				'<tr><td class="mw-label">' . Xml::label( $nscanonicalmessage, 'mw-namespaces-nscanonical' ) . '</td>' .
+				'<tr><td class="mw-label">' . Html::label( $nscanonicalmessage, 'mw-namespaces-nscanonical' ) . '</td>' .
 				'<td class="mw-input">' . Html::check( 'wpNamespacesCanonical', $nscanonical, [ 'id' => 'mw-namespaces-nscanonical' ] ) . '</td></tr>' .
-				'<tr><td class="mw-label">' . Xml::label( $nsnamemessage, 'mw-namespaces-nsname' ) . '</td>' .
+				'<tr><td class="mw-label">' . Html::label( $nsnamemessage, 'mw-namespaces-nsname' ) . '</td>' .
 				'<td class="mw-input">' . Html::input( 'wpNamespacesName', $defaultname, 'text', [ 'size' => 60, 'tabindex' => '1', 'maxlength' => '200', 'id' => 'mw-namespaces-nsname' ] ) . '</td></tr>' .
-				'<tr><td class="mw-label">' . Xml::label( $reasonmessage, 'mw-namespaces-editreason' ) . '</td>' .
+				'<tr><td class="mw-label">' . Html::label( $reasonmessage, 'mw-namespaces-editreason' ) . '</td>' .
 				'<td class="mw-input">' . Html::input( 'wpNamespacesReason', $defaultreason, 'text', [ 'size' => 60, 'tabindex' => '1', 'id' => 'mw-namespaces-editreason', 'maxlength' => '200' ] ) .
 				Html::hidden( 'wpNamespacesAction', $action ) .
 				$old .
 				Html::hidden( 'wpEditToken', $token ) .
 				'</td></tr>' .
 				'<tr><td class="mw-submit">' . Html::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) . '</td></tr>' .
-				Xml::closeElement( 'table' ) .
-				Xml::closeElement( 'form' ) .
-				Xml::closeElement( 'fieldset' )
+				Html::closeElement( 'table' ) .
+				Html::closeElement( 'form' ) .
+				Html::closeElement( 'fieldset' )
 				);
 				break;
 		}

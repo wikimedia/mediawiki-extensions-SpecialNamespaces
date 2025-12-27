@@ -89,9 +89,9 @@ class SpecialNamespaces extends SpecialPage {
 				"<tr><td>$deletingmessage</td></tr>" .
 				'<tr><td class="mw-label">' . Xml::label( $reasonmessage, 'mw-namespaces-deletereason' ) . '</td>' .
 				'<td class="mw-input">' .
-				Xml::input( 'wpNamespacesReason', 60, $defaultreason, [ 'tabindex' => '1', 'id' => 'mw-namespaces-deletereason', 'maxlength' => '200' ] ) .
+				Html::input( 'wpNamespacesReason', $defaultreason, 'text', [ 'size' => 60, 'tabindex' => '1', 'id' => 'mw-namespaces-deletereason', 'maxlength' => '200' ] ) .
 				'</td></tr>' .
-				'<tr><td class="mw-submit">' . Xml::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) .
+				'<tr><td class="mw-submit">' . Html::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) .
 				Html::hidden( 'wpNamespacesID', $nsid ) .
 				Html::hidden( 'wpNamespacesOldName', $nsoldname ) .
 				Html::hidden( 'wpNamespacesAction', $action ) .
@@ -124,7 +124,7 @@ class SpecialNamespaces extends SpecialPage {
 					$button = wfMessage( 'edit' )->text();
 				} else {
 					$nsid = $req->getVal( 'wpNamespacesID' ) ? $req->getVal( 'wpNamespacesID' ) : $req->getVal( 'prefix' );
-					$nsid = Xml::input( 'wpNamespacesID', 20, $nsid ?? '', [ 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20' ] );
+					$nsid = Html::input( 'wpNamespacesID', $nsid ?? '', 'text', [ 'tabindex' => '1', 'id' => 'mw-namespaces-nsid', 'maxlength' => '20', 'size' => 20 ] );
 					$nsdefault = $req->getCheck( 'wpNamespacesDefault' );
 					$nscanonical = $req->getCheck( 'wpNamespacesCanonical' );
 					$old = '';
@@ -148,18 +148,18 @@ class SpecialNamespaces extends SpecialPage {
 				Xml::openElement( 'table', [ 'id' => "mw-namespaces-$action" ] ) .
 				"<tr><td class='mw-label'>$nsidmessage</td><td><tt>$nsid</tt></td></tr>" .
 				"<tr><td class='mw-label'>" . Xml::label( $nsdefaultmessage, 'mw-namespaces-nsdefault' ) . '</td>' .
-				"<td class='mw-input'>" . Xml::check( 'wpNamespacesDefault', $nsdefault, [ 'id' => 'mw-namespaces-nsdefault' ] ) . '</td></tr>' .
+				"<td class='mw-input'>" . Html::check( 'wpNamespacesDefault', $nsdefault, [ 'id' => 'mw-namespaces-nsdefault' ] ) . '</td></tr>' .
 				'<tr><td class="mw-label">' . Xml::label( $nscanonicalmessage, 'mw-namespaces-nscanonical' ) . '</td>' .
-				'<td class="mw-input">' . Xml::check( 'wpNamespacesCanonical', $nscanonical, [ 'id' => 'mw-namespaces-nscanonical' ] ) . '</td></tr>' .
+				'<td class="mw-input">' . Html::check( 'wpNamespacesCanonical', $nscanonical, [ 'id' => 'mw-namespaces-nscanonical' ] ) . '</td></tr>' .
 				'<tr><td class="mw-label">' . Xml::label( $nsnamemessage, 'mw-namespaces-nsname' ) . '</td>' .
-				'<td class="mw-input">' . Xml::input( 'wpNamespacesName', 60, $defaultname, [ 'tabindex' => '1', 'maxlength' => '200', 'id' => 'mw-namespaces-nsname' ] ) . '</td></tr>' .
+				'<td class="mw-input">' . Html::input( 'wpNamespacesName', $defaultname, 'text', [ 'size' => 60, 'tabindex' => '1', 'maxlength' => '200', 'id' => 'mw-namespaces-nsname' ] ) . '</td></tr>' .
 				'<tr><td class="mw-label">' . Xml::label( $reasonmessage, 'mw-namespaces-editreason' ) . '</td>' .
-				'<td class="mw-input">' . Xml::input( 'wpNamespacesReason', 60, $defaultreason, [ 'tabindex' => '1', 'id' => 'mw-namespaces-editreason', 'maxlength' => '200' ] ) .
+				'<td class="mw-input">' . Html::input( 'wpNamespacesReason', $defaultreason, 'text', [ 'size' => 60, 'tabindex' => '1', 'id' => 'mw-namespaces-editreason', 'maxlength' => '200' ] ) .
 				Html::hidden( 'wpNamespacesAction', $action ) .
 				$old .
 				Html::hidden( 'wpEditToken', $token ) .
 				'</td></tr>' .
-				'<tr><td class="mw-submit">' . Xml::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) . '</td></tr>' .
+				'<tr><td class="mw-submit">' . Html::submitButton( $button, [ 'id' => 'mw-namespaces-submit' ] ) . '</td></tr>' .
 				Xml::closeElement( 'table' ) .
 				Xml::closeElement( 'form' ) .
 				Xml::closeElement( 'fieldset' )

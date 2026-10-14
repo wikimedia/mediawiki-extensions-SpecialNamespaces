@@ -29,6 +29,12 @@ class Hooks implements CanonicalNamespacesHook, LoadExtensionSchemaUpdatesHook {
 	 * @return bool true at all times (as a MediaWiki hook must always return a value)
 	 */
 	public function onCanonicalNamespaces( &$namespaces ) {
+		$services = MediaWikiServices::getInstance();
+		// Namespace initialization can also run with storage disabled.
+		if ( $services->isStorageDisabled() ) {
+			return true;
+		}
+
 		global $wgExtraNamespaces, $wgNamespaceAliases;
 		global $wgSitename, $wgMetaNamespace, $wgMetaNamespaceTalk;
 
@@ -39,14 +45,14 @@ class Hooks implements CanonicalNamespacesHook, LoadExtensionSchemaUpdatesHook {
 			$wgNamespaceAliases = [];
 		}
 
-		$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
+		$cache = $services->getLocalServerObjectCache();
 		$key = $cache->makeKey( 'SpecialNamespaces', 'names' );
 		$cached = $cache->get( $key );
 
 		if ( ( $cached == null ) || ( !is_array( $cached ) ) ) {
 
 			// if namespaces are not in memcache, retrieve them from main database
-			$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
+			$dbr = $services->getDBLoadBalancer()->getConnection( DB_REPLICA );
 			try {
 				$res = $dbr->select( 'namespace_names', '*' );
 			} catch ( DBError $e ) {
